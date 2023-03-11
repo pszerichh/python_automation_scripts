@@ -1,3 +1,7 @@
 Port scan summary for host: 127.0.0.1
 ========================================
-No ports are open.
+Open ports:
+36821
+42313
+52935
+57621

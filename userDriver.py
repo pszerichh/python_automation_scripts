@@ -2,7 +2,7 @@
 import pyfiglet
 from responses import target
 from sqlalchemy import true
-import hostScan, portScanner, dummy, fuzzer, exitor
+import hostScan, portScanner, dummyScript, dirFuzzer, codeExitor
 from threading import *
 
 banner = pyfiglet.figlet_format("Python Automation Scripts")
@@ -20,20 +20,20 @@ works = []
 
 def choice(op1):
     switcher = {
-        0: dummy,
+        0: dummyScript,
         1: hostScan,
         2: portScanner,
-        3: fuzzer,
-        4: exitor
+        3: dirFuzzer,
+        4: codeExitor
     }
 
     pkg = switcher.get(op1, None)
     if pkg ==None:
         print("Oops! Invalid option.")
-    elif pkg==dummy:
-        dummy.fun(works)
-    elif pkg==exitor:
-        exitor.env_exit(works)
+    elif pkg==dummyScript:
+        dummyScript.fun(works)
+    elif pkg==codeExitor:
+        codeExitor.env_exit(works)
     else:
         pkg.fun()
         td = Thread(target=pkg.back, name = pkg.operation, daemon=True)

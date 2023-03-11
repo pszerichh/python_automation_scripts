@@ -1,0 +1,4 @@
+200 :: http://vulnmachine.thm/news/
+200 :: http://vulnmachine.thm/contact/
+200 :: http://vulnmachine.thm/monthly/
+200 :: http://vulnmachine.thm/development.log

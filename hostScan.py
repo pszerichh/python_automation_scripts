@@ -1,4 +1,3 @@
-from audioop import add
 import os, platform
 from datetime import datetime as dt
 
@@ -12,9 +11,9 @@ net1 = []
 net2 = ""
 rng = []
 oSystem = platform.system()
+file_name = ""
 
-
-def back(file_name):
+def back():
     filw = open(file_name, 'w')
     filw.write("ping sweep result for network"+net2+"*")
     oper = platform.system()
@@ -44,6 +43,6 @@ def fun():
     en +=1
     rng.append(st); rng.append(en)
     name = dt.isoformat(dt.now())
+    global file_name
     file_name = "outputs/HostPing/"+name+".txt"
     print("Results will be written to file: ",file_name)
-    return file_name
