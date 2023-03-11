@@ -90,6 +90,7 @@ def setStage():
 
     name = dt.isoformat(dt.now())
     outFile = "outputs/CredStuffer/"+name+".txt"
+    print("")
 
 
 setStage()
