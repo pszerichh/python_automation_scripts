@@ -24,7 +24,7 @@ def probe(ip, port):
     return result
 
 
-def back():
+def launchAttack():
     filw = open(file_name, 'w')
     filw.write("Port scan summary for host: "+ip+"\n")
     filw.write("========================================\n")
@@ -41,7 +41,7 @@ def back():
     else:
         filw.write("No ports are open.")
 
-def fun():
+def setStage():
     global ip
     ip = input("Enter IP address: ")
     name = dt.isoformat(dt.now())

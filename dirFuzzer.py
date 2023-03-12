@@ -21,22 +21,8 @@ def makeDictionary():
 	for line in rawWords:
 		wordQueue.put(line.rstrip())
 
-	# found_res = False
-	# words = queue.Queue()
 
-	# for word in rawWords:
-	# 	word = word.rstrip()
-
-	# 	if resume is not None:
-	# 		if found_res:
-	# 			words.put(word)
-	# 		else:
-	# 			if word == resume:
-	# 				found_res = True
-	# 	else:
-	# 		words.put(word)
-
-def back(extensions=None):
+def launchAttack(extensions=None):
 	fd = open(outFile, "w")
 
 	while not wordQueue.empty():

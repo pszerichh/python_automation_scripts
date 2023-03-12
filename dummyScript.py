@@ -1,4 +1,4 @@
-def fun(works):
+def setStage(works):
     if(len(works)==0):
         print("No jobs pending")
         return

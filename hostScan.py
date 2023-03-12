@@ -13,7 +13,7 @@ rng = []
 oSystem = platform.system()
 file_name = ""
 
-def back():
+def launchAttack():
     filw = open(file_name, 'w')
     filw.write("ping sweep result for network"+net2+"*")
     oper = platform.system()
@@ -33,7 +33,7 @@ def back():
                 filw.write(addr+" ---> live")
 
 
-def fun():
+def setStage():
     net = input("Enter network address: ")
     net1 = net.split('.')
     global net2
