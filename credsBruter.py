@@ -11,7 +11,6 @@ credsBody = {
 
 operation=""
 
-
 # the output file
 outFile = ''
 # the dicitionary for username field
@@ -55,17 +54,8 @@ def launchAttack():
 
     fd.close()
 
-            
-            
-
-
 
 def setStage():
-    # CRED = '\033[91m'
-    # CEND = '\033[0m'
-    # print(CRED+'Hello, there'+CEND)
-    print(F'{colors["CBOLD"]}SamHatter{colors["CEND"]}')
-
     global loginUrl, passWordlist, unameWordlist, outFile, operation
     makeUname, makePasswd = True, True
     loginUrl = input('Enter url to the login page: ')
@@ -108,20 +98,3 @@ def setStage():
     print(F'[!] Results will be written to file:\n\t{colors["CBOLD"]}{colors["CURL"]}{outFile}{colors["CEND"]}')
     operation = "credentials stuffing against "+loginUrl
 
-
-
-setStage()
-launchAttack()
-
-# def getHandler():
-#     makeDictionary()
-#     # res = requests.get(loginUrl)
-#     # soupObj = bs(res.text, 'lxml')
-#     # print(res.text)
-#     # with :
-#     #     credsBody['password'] = password
-#     #     print(F'requesting with username: {credsBody["username"]} & password: {credsBody["password"]}')
-#     #     res = requests.post(url=loginUrl, data=credsBody)
-#     #     print(res.headers['Content-Length'])
-
-# it does the setup for the whole attack
