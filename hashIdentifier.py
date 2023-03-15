@@ -560,5 +560,5 @@ def setStage():
     global h
     h = input("Enter Hash: ")
     name = dt.isoformat(dt.now())
-    file_name = "outputs/HashId/"+name+".txt"
+    file_name = "outputs/HashIdentifier/"+name+".txt"
     print("Results will be written to file: ", file_name)

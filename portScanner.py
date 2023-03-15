@@ -46,5 +46,5 @@ def setStage():
     ip = input("Enter IP address: ")
     name = dt.isoformat(dt.now())
     global file_name
-    file_name = "outputs/PortScan/"+name+".txt"
+    file_name = "outputs/PortScanner/"+name+".txt"
     print("Results will be written to file: ",file_name)

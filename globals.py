@@ -13,7 +13,7 @@ colors = {
     
     
     'CGREY' : '\033[90m', 'CRED2' : '\033[91m', 'CGREEN2' : '\033[92m', 'CYELLOW2' : '\033[93m',
-    'CBLUE2' : '\033[94m', 'CVIOLET2' : '\033[95m', 'CBEIGE2' : '\033[96m', 'CWHITE2' : '\033[97m',
+    'CBLUE2' : '\033[94m', 'CVIOLET2' : '\033[95m', 'CCYAN' : '\033[96m', 'CWHITE2' : '\033[97m',
     
     'CGREYBG' : '\033[100m', 'CREDBG2' : '\033[101m', 'CGREENBG2' : '\033[102m','CYELLOWBG2' : '\033[103m',
     'CBLUEBG2' : '\033[104m', 'CVIOLETBG2' : '\033[105m','CBEIGEBG2' : '\033[106m', 'CWHITEBG2' : '\033[107m'

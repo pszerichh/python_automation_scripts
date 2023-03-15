@@ -4,17 +4,18 @@ from responses import target
 from sqlalchemy import true
 import hostScan, portScanner, dummyScript, dirFuzzer, codeExitor, credsBruter
 from threading import *
+from globals import colors
 
 banner = pyfiglet.figlet_format("Python Automation Scripts")
 print(banner)
 
-opers = """
+opers = F"""{colors['CCYAN']}{colors['CBOLD']}
 [0] List running processes
 [1] Scan for live hosts on a network
 [2] Scan for open ports on a target host
-[3] Fuzz for directories/subdomains
+[3] Fuzz for directories/files
 [4] Stuff credentials against login page
-[5] To exit
+[5] To exit{colors['CEND']}
 """
 
 works = []

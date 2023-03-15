@@ -70,9 +70,9 @@ def setStage():
             newPassFile = input('Enter path to new password dictionary: ')
             if os.path.exists(newPassFile):
                 passWordlist = newPassFile
-                print('wordlist for password changed\n')
+                print(F'{colors["CBLUE"]}[!] Wordlist for password changed{colors["CEND"]}\n')
             else:
-                print('Supplied file does not exist')
+                print(F'{colors["CRED"]}Supplied file does not exist{colors["CEND"]}')
                 print(F'Continuing with file at\n\t{colors["CBOLD"]}{passWordlist}{colors["CEND"]}\n')
 
     chUser = input(F'Currntly dictionary for usernames\n\t{colors["CBOLD"]}{unameWordlist}{colors["CEND"]}\n\nchange? (y/N): ')
@@ -86,9 +86,9 @@ def setStage():
             newUserFile = input('Enter path to new username dictionary: ')
             if(os.path.exists(newUserFile)):
                 unameWordlist = newUserFile
-                print('Wordlist for username changed\n')
+                print(F'{colors["CBLUE"]}[!] Wordlist for username changed{colors["CEND"]}\n')
             else:
-                print('Supplied file does not exist')
+                print(F'{colors["CRED"]}Supplied file does not exist{colors["CEND"]}')
                 print(F'Continuing with file at\n\t{colors["CBOLD"]}{unameWordlist}{colors["CEND"]}\n')
 
     makeDictionary(makeUname, makePasswd)

@@ -1,0 +1,17 @@
+search
+login
+index
+robots
+script
+admin
+contacts
+resources
+home
+site
+server-status
+test
+dev
+developement
+console
+access
+config
