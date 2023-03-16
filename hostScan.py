@@ -1,63 +1,48 @@
-import os, platform, socket
+import time
 from datetime import datetime as dt
+import scapy.all as scapy
 
-from sympy import ln
 
-# net = input("enter network address: ")
+netAddr = ''
+outFile = ''
+operation = 'Network scanning for'
 
-operation = "Host Scanning"
+def scanIP(netAddr):
 
-net1 = []
-net2 = ""
-rng = []
-oSystem = platform.system()
-outFile = ""
+	arpRequest = scapy.ARP(pdst=netAddr)
+	broadcast = scapy.Ether(dst='ff:ff:ff:ff:ff:ff')
+	arpPacket = broadcast/arpRequest
 
-def scanIP(ipaddr):
-    sockObj = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    socket.setdefaulttimeout(1)
-    res = sockObj.connect_ex((ipaddr, 135))
+	responsiveHosts = scapy.srp(arpPacket, timeout=1, verbose=0)[0]
+	
+	liveHosts = []
+	
+	for hostConfig in responsiveHosts:
+		liveHosts.append(hostConfig[1].psrc)
 
-    if res==0:
-        if     
-    
+	return liveHosts
+
+	
 
 def launchAttack():
-    fd = open(outFile, 'w')
 
+	liveHosts = scanIP(netAddr)
 
+	fd = open(outFile, 'w')
+	for host in liveHosts:
+		fd.write(F'[!] {host} is alive\n')
 
-
-# def launchAttack():
-#     filw = open(outFile, 'w')
-#     filw.write("ping sweep result for network"+net2+"*")
-#     oper = platform.system()
-#     if oper == "Windows":
-#         pinc = "ping -n 1 "
-#     else:
-#         pinc = "ping -c 1 "
-
-#     for ip in range(rng[0], rng[1]):
-#         addr = net2 + str(ip)
-#         com = pinc + addr
-#         res = os.popen(com)
-#         for line in res.readlines():
-#                 if(line.count("TTL")):
-#                 	break;
-#                 if(line.count("TTL")):
-#                 	filw.write(addr+" ---> live")
+	
 
 
 def setStage():
-    net = input("Enter network address: ")
-    net1 = net.split('.')
-    global net2
-    net2 = net1[0] + '.' + net1[1] + '.' + net[2] + '.'
-    st = int(input("Enter first number for last octet: "))
-    en = int(input("Enter last number for last octet: "))
-    en +=1
-    rng.append(st); rng.append(en)
-    name = dt.isoformat(dt.now())
-    global outFile
-    outFile = "outputs/HostScanner/"+name+".txt"
-    print("Results will be written to file: ",outFile)
+	global netAddr, outFile, operation
+	netAddr = input('Enter network address in CIDR format (Eg. 192.168.34.25/24): ')
+
+	name = dt.isoformat(dt.now())
+	outFile = F'/home/sam/Shop/python_automation_scripts/outputs/HostScanner/{name}.txt'
+	print(F'Output will be written to {outFile}')
+
+
+setStage()
+launchAttack()
