@@ -22,7 +22,6 @@ def scanIP(netAddr):
 
 	return liveHosts
 
-	
 
 def launchAttack():
 
@@ -31,8 +30,6 @@ def launchAttack():
 	fd = open(outFile, 'w')
 	for host in liveHosts:
 		fd.write(F'[!] {host} is alive\n')
-
-	
 
 
 def setStage():
@@ -43,6 +40,3 @@ def setStage():
 	outFile = F'/home/sam/Shop/python_automation_scripts/outputs/HostScanner/{name}.txt'
 	print(F'Output will be written to {outFile}')
 
-
-setStage()
-launchAttack()
