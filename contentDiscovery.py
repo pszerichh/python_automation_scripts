@@ -65,7 +65,7 @@ def launchAttack():
 	while not subdQueue.empty():
 		pref = subdQueue.get()
 		url = F"http://{pref}.{targetHost}"
-		print(url)
+		# print(url)
 		
 		res = requests.get(url)
 		if res.status_code in statusCodes:
@@ -80,7 +80,7 @@ def launchAttack():
 	while not direQueue.empty():
 		suff = direQueue.get()
 		url = targetHost + F"/{suff}/"
-		print(url)
+		# print(url)
 		
 		res = requests.get(url)
 		if res.status_code in statusCodes:
@@ -92,7 +92,7 @@ def launchAttack():
 	while not pageQueue.empty():
 		suff = pageQueue.get()
 		url = targetHost + F"/{suff}"
-		print(url)
+		# print(url)
 		
 		res = requests.get(url)
 		if res.status_code in statusCodes:
