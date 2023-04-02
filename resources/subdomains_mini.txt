@@ -14,7 +14,7 @@ autodiscover
 autoconfig
 ns
 test
-m
+store
 blog
 dev
 www2

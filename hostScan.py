@@ -28,6 +28,11 @@ def launchAttack():
 	liveHosts = scanIP(netAddr)
 
 	fd = open(outFile, 'w')
+
+	fd.write(F'Host scan result of network {netAddr}\n')
+	fd.write(F'Scan coducted on {dt.now()}\n')
+
+
 	for host in liveHosts:
 		fd.write(F'[!] {host} is alive\n')
 

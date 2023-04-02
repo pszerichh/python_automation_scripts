@@ -2,7 +2,7 @@
 import pyfiglet
 from responses import target
 from sqlalchemy import true
-import hostScan, portScanner, dummyScript, dirFuzzer, codeExitor, credsBruter
+import hostScan, portScanner, dummyScript, contentDiscovery, codeExitor, credsBruter
 from threading import *
 from globals import colors
 
@@ -25,7 +25,7 @@ def choice(op1):
         0: dummyScript,
         1: hostScan,
         2: portScanner,
-        3: dirFuzzer,
+        3: contentDiscovery,
         4: credsBruter,
         5: codeExitor
     }

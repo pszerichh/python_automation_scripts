@@ -25,9 +25,10 @@ def probe(ip, port):
 
 
 def launchAttack():
-    filw = open(file_name, 'w')
-    filw.write("Port scan summary for host: "+ip+"\n")
-    filw.write("========================================\n")
+    fd = open(file_name, 'w')
+    fd.write("Port scan summary for host: "+ip+"\n")
+    fd.write(F'Scan coducted on {dt.now()}\n')
+    fd.write("========================================\n")
     for port in ports:
         # sys.stdout.flush()
         response = probe(ip, port)
@@ -35,11 +36,11 @@ def launchAttack():
             op_ports.append(port)
     
     if op_ports:
-        filw.write("Open ports:\n")
+        fd.write("Open ports:\n")
         for port in sorted(op_ports):
-            filw.write(str(port)+"\n")
+            fd.write(str(port)+"\n")
     else:
-        filw.write("No ports are open.")
+        fd.write("No ports are open.")
 
 def setStage():
     global ip

@@ -3,14 +3,20 @@ import requests, queue, os
 from datetime import datetime as dt
 from globals import colors
 
-targetUrl = ''
+targetHost = ''
 direWordlist = '/home/sam/Shop/python_automation_scripts/resources/directories_mini.txt'
-pageWordlist = '/home/sam/Shop/python_automation_scripts/resources/pages_mini.txt'
-subdWordlist = '/home/sam/Shop/python_automation_scripts/resources/'
-userAgent = 'Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0'
+pageWordlist = '/home/sam/Shop/python_automation_scripts/resources/directories_mini.txt'
+subdWordlist = '/home/sam/Shop/python_automation_scripts/resources/subdomains_mini.txt'
+# userAgent = 'Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0'
 operation = ''
 
-ext = ['.php', '.txt', '.bak', '.js', '.html', '.log']
+extensions = [
+	'.asp', '.aspx', '.bak', '.bat', '.css', '.com', '.config',
+	'.dat', '.dll', '.exe', 'html', '.js', '.log', '.pcap', '.php', '.phps',
+	'.phtml', '.properties', '.rsa', '.sh', '.sql', '.tar', '.txt', '.xml', '.zip'
+]
+
+statusCodes = [200, 204, 301, 302, 307, 401, 403, 405, 500]
 
 direQueue = queue.Queue()
 pageQueue = queue.Queue()
@@ -18,7 +24,7 @@ subdQueue = queue.Queue()
 outFile = ''
 
 def makeDictionary(attackType):
-	if attackType==1:
+	if attackType in [1,4,5,7]:
 		fd = open(direWordlist, 'r')
 		rawWords = fd.readlines()
 		fd.close()
@@ -26,15 +32,16 @@ def makeDictionary(attackType):
 		for line in rawWords:
 			direQueue.put(line.rstrip())
 	
-	elif attackType==2:
+	if attackType in [2,4,6,7]:
 		fd = open(pageWordlist, 'r')
 		rawWords = fd.readlines()
 		fd.close()
 
 		for line in rawWords:
-			pageQueue.put(line.rstrip())
+			for ext in extensions:
+				pageQueue.put(line.rstrip()+ext)
 
-	elif attackType==3:
+	if attackType in [3,5,6,7]:
 		fd = open(subdWordlist, 'r')
 		rawWords = fd.readlines()
 		fd.close()
@@ -42,58 +49,71 @@ def makeDictionary(attackType):
 		for line in rawWords:
 			subdQueue.put(line.rstrip())
 	
-	else:
-		makeDictionary(1)
-		makeDictionary(2)
-		makeDictionary(3)
-
-
-# def launchAttack(extensions=None):
-# 	fd = open(outFile, 'w')
-
-# 	while not wordQueue.empty():
-# 		attempt = wordQueue.get()
-# 		attempt_list = []
-# 		if "." not in str(attempt):
-# 			attempt_list.append('/{}/'.format(attempt))
-# 		else:
-# 			attempt_list.append('/{}'.format(attempt))
-
-# 		if extensions:
-# 			for extension in extensions:
-# 				attempt_list.append('/{}{}'.format(attempt, extension))
-
-# 		for brute in attempt_list:
-# 			url = "%s%s" % (targetUrl, urllib.parse.quote(brute))
-
-# 			try:
-# 				headers = {}
-# 				headers["User-Agent"] = userAgent
-# 				r = urllib.request.Request(url, headers=headers)
-
-# 				response = urllib.request.urlopen(r)
-# 				if len(response.read()):
-# 					resp = str(response.code) +" :: "+url+"\n"
-# 					fd.write(resp)
-# 			except urllib.error.HTTPError as e:
-# 				if hasattr(e, 'code') and e.code != 404:
-# 					resp = '[!!!]' + ' :: ' +str(e.code) + ' :: ' + url+'\n'
-# 					fd.write(resp)
-
 
 def launchAttack():
-	pass
+	global targetHost
+	fd = open(outFile, 'w')
+
+	if 'http' in targetHost or 'https' in targetHost:
+		targetHost = targetHost.split('://')[1]
+
+	# print(targetHost)
+
+	# subdomain fuzzing part
+	if not subdQueue.empty():
+		fd.write('---------------subdomain fuzzing result---------------\n')
+	while not subdQueue.empty():
+		pref = subdQueue.get()
+		url = F"http://{pref}.{targetHost}"
+		print(url)
+		
+		res = requests.get(url)
+		if res.status_code in statusCodes:
+			fd.write(F'[!!!] {res.status_code} : {url}\n')
+
+
+	targetHost = F"http://{targetHost}"
+
+	# directory fuzzing part
+	if not direQueue.empty():
+		fd.write('---------------directory fuzzing result---------------\n')
+	while not direQueue.empty():
+		suff = direQueue.get()
+		url = targetHost + F"/{suff}/"
+		print(url)
+		
+		res = requests.get(url)
+		if res.status_code in statusCodes:
+			fd.write(F"[!!!] {res.status_code} : {url}\n")
+
+	# page fuzzing part
+	if not pageQueue.empty():
+		fd.write('---------------page fuzzing result---------------\n')
+	while not pageQueue.empty():
+		suff = pageQueue.get()
+		url = targetHost + F"/{suff}"
+		print(url)
+		
+		res = requests.get(url)
+		if res.status_code in statusCodes:
+			fd.write(F"[!!!] {res.status_code} : {url}\n")
+
+	fd.close()
+
 
 
 def setStage():
 	# global wordQueue
-	global wordlist, wordQueue, outFile, operation, targetUrl
-	targetUrl = input('Enter target url to fuzz: ')
+	global direWordlist, pageWordlist, subdWordlist, wordQueue, outFile, operation, targetHost
+	targetHost = input('Enter target url to fuzz: ')
 
-	print(F'[1] Perform directory fuzzing\n[2] Perform page fuzzing\n[3] Perform subdomain fuzzing\n[4] Perform all of these\n')
+	print('Enter the corresponding option for the action you want to perform')
+	print('[1] Directory fuzzing\n[2] Page fuzzing\n[3] Subdomain fuzzing')
+	print('[4] Directory and Page fuzzing\n[5] Directory and Subdomain fuzzing')
+	print('[6] Page and Subdomain fuzzing\n[7] All of the operations\n')
 	atkChoice = int(input('Your choice: '))
 
-	if atkChoice==1 or atkChoice==4:
+	if atkChoice in [1,4,5,7]:
 		print(F'Current dictionary for directory fuzzing:\n\t{colors["CBOLD"]}{colors["CURL"]}{direWordlist}{colors["CEND"]}')
 		ch = input('Change dictionary? (y/N): ')
 		if ch=='y' or ch =='Y':
@@ -105,7 +125,7 @@ def setStage():
 				print(F'{colors["CRED"]}[!!!] Supplied file does not exist{colors["CEND"]}')
 				print(F'Continuing with\n\t{colors["CBOLD"]}{colors["CEND"]}{direWordlist}{colors["CEND"]}\n')
 		
-	if atkChoice==2 or atkChoice==4:
+	if atkChoice in [2,4,6,7]:
 		print(F'Currrent dictionary for page fuzzing:\n\t{colors["CBOLD"]}{colors["CURL"]}{pageWordlist}{colors["CEND"]}\n')
 		ch = input('Change dictionary? (y/N): ')
 		if ch=='y' or ch=='Y':
@@ -117,7 +137,7 @@ def setStage():
 				print(F'{colors["CRED"]}[!!!] Supplied file does not exist{colors["CEND"]}')
 				print(F'Continuing with\n\t{colors["CBOLD"]}{colors["CURL"]}{pageWordlist}{colors["CEND"]}\n')
 
-	if atkChoice==3 or atkChoice==4:
+	if atkChoice in [3,5,6,7]:
 		print(F'Current dictionary for subdomain fuzzing:\n\t{colors["CBOLD"]}{colors["CURL"]}{subdWordlist}{colors["CEND"]}')
 		ch = input('Change dictionary? (y/N): ')
 		if ch=='y' or ch=='Y':
@@ -134,7 +154,7 @@ def setStage():
 
 	name = dt.isoformat(dt.now())
 	outFile = 'outputs/DirFuzzer/'+name+'.txt'
-	print(F'[!] Results will be written to file:\n\t{colors["CBOLD"]}{colors["CURL"]}{outFile}')
+	print(F'[!] Results will be written to file:\n\t{colors["CBOLD"]}{colors["CURL"]}{outFile}{colors["CEND"]}')
 	
-	operation = 'directory fuzzing for host '+targetUrl
+	operation = 'directory fuzzing for host '+targetHost
 
