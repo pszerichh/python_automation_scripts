@@ -1,75 +1,56 @@
-import bs4
-import requests
-import re
+import requests, bs4
 from datetime import datetime as dt
-url = ""
-
-def back():
-	web = requests.get(url) #http request
-	soup = bs4.BeautifulSoup(web.text, 'html.parser') #soup object
-	for link in soup.find_all('a'):
-		l_href = link.get('href') #extracting the href value
-		if(type(l_href) == str): #avoiding urls with href value NoneType
-			if(len(l_href) >= 2): #avoiding page refreshing links
-				div = re.split('/', link.get('href'))
-				if(len(div) >= 2): #avoiding javascripts
-					if(div[0] == 'https:'):
-						i = 0
-						for it in (mod.nex_it):
-							if(it == l_href):
-								i = i+1
-							else:
-								continue
-
-						if( i == 0 ):
-							mod.nex_it.append(l_href) #collecting url
-							config.logger.info(l_href)
-						else:
-							continue
-
-					elif(div[0] == 'http:'):
-						i = 0
-						for it in (mod.nex_it):
-							if(it == l_href):
-								i = i+1
-							else:
-								continue
-
-						if( i ==0 ):
-							mod.nex_it.append(l_href) #collecting url
-							config.logger.info(l_href)
-						else:
-							continue
-
-					else:
-						i = 0
-						temp_href = urls + l_href
-						for it in (mod.nex_it):
-							if(it == temp_href):
-								i = i+1
-							else:
-								continue
-
-						if(i == 0):
-							
-						else:
-							continue
-
-				else:
-					continue
-
-			else:
-				continue
-
-		else:
-			continue
+from requests.exceptions import *
+from urllib.parse import urlparse, urlunparse
 
 
+targetURL = ''
 
-def fun():
-	global url
-	url = input("Enter url to scrape: ")
+operation = ''
+
+outFile = ''
+
+
+def launchAttack():
+	global targetURL
+	if 'http' not in targetURL:
+		targetURL = F'http://{targetURL}'
+	parsedTarget = urlparse(targetURL)
+	res = requests.Response()
+	fd = open(outFile,'w')
+	fd.write(F'Web crawling summary against target {targetURL} carried out at {dt.now()}')
+	try:
+		res = requests.get(targetURL)
+	except URLRequired as ur:
+		fd.write('[!!!] Invalid URL provided\n')
+	except ConnectTimeout:
+		fd.write('[!!!] Connection timed out\n')
+	except HTTPError as hte:
+		fd.write(F'[!!!] Error occurred: {hte}\n')
+	except Exception as e:
+		fd.write(F'[!!!] Exception occurred: {e}\n')
+	
+	if(res.status_code==404):
+		fd.write('[!!!] Page not found\n')
+	else:
+		soupObj = bs4.BeautifulSoup(res.text, 'html.parser')
+		for link in soupObj.find_all('a'):
+			href = link.get('href')
+			parsedURL = urlparse(href)
+			if len(parsedURL.scheme) == 0:
+				parsedURL = parsedURL._replace(scheme='http')
+			if len(parsedURL.netloc) == 0:
+				parsedURL = parsedURL._replace(netloc=parsedTarget.netloc)
+			fd.write(F'[url] == {urlunparse(parsedURL)}\n')
+
+
+def setStage():
+	global targetURL, operation, outFile
+	targetURL = input('Enter the url of the page to be scraped: ')
 	name = dt.isoformat(dt.now())
-	file_name = "outputs/webScrape/"+name+".txt"
-	print("Results will be written to file: ",file)
-	return file_name
+	outFile = F'outputs/URLCrawler/{name}.txt'
+	print(F'output will be written to {outFile}')
+	operation = F'URL scraping on target {targetURL}'
+
+setStage()
+launchAttack()

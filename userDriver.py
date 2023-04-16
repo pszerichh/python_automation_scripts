@@ -2,7 +2,7 @@
 import pyfiglet
 from responses import target
 from sqlalchemy import true
-import hostScan, portScanner, dummyScript, contentDiscovery, codeExitor, credsBruter
+import hostScan, portScanner, dummyScript, contentDiscovery, codeExitor, credsBruter, webCrawler
 from threading import *
 from globals import colors
 
@@ -27,7 +27,8 @@ def choice(op1):
         2: portScanner,
         3: contentDiscovery,
         4: credsBruter,
-        5: codeExitor
+        5: webCrawler,
+        6: codeExitor
     }
 
     pkg = switcher.get(op1, None)

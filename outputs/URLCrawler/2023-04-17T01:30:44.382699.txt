@@ -1,0 +1,27 @@
+Web crawling summary against target http://google.com carried out at 2023-04-17 01:30:44.383311[url] == http://www.google.co.in/imghp?hl=en&tab=wi
+[url] == http://maps.google.co.in/maps?hl=en&tab=wl
+[url] == https://play.google.com/?hl=en&tab=w8
+[url] == https://www.youtube.com/?tab=w1
+[url] == https://news.google.com/?tab=wn
+[url] == https://mail.google.com/mail/?tab=wm
+[url] == https://drive.google.com/?tab=wo
+[url] == https://www.google.co.in/intl/en/about/products?tab=wh
+[url] == http://www.google.co.in/history/optout?hl=en
+[url] == http://google.com/preferences?hl=en
+[url] == https://accounts.google.com/ServiceLogin?hl=en&passive=true&continue=http://www.google.com/&ec=GAZAAQ
+[url] == http://google.com/advanced_search?hl=en-IN&authuser=0
+[url] == http://www.google.com/setprefs?sig=0_ywQsiLW6JdN8TCgT1xmAUzvSh8w%3D&hl=hi&source=homepage&sa=X&ved=0ahUKEwiJoKy9mK_-AhWjTmwGHYu2CJkQ2ZgBCAU
+[url] == http://www.google.com/setprefs?sig=0_ywQsiLW6JdN8TCgT1xmAUzvSh8w%3D&hl=bn&source=homepage&sa=X&ved=0ahUKEwiJoKy9mK_-AhWjTmwGHYu2CJkQ2ZgBCAY
+[url] == http://www.google.com/setprefs?sig=0_ywQsiLW6JdN8TCgT1xmAUzvSh8w%3D&hl=te&source=homepage&sa=X&ved=0ahUKEwiJoKy9mK_-AhWjTmwGHYu2CJkQ2ZgBCAc
+[url] == http://www.google.com/setprefs?sig=0_ywQsiLW6JdN8TCgT1xmAUzvSh8w%3D&hl=mr&source=homepage&sa=X&ved=0ahUKEwiJoKy9mK_-AhWjTmwGHYu2CJkQ2ZgBCAg
+[url] == http://www.google.com/setprefs?sig=0_ywQsiLW6JdN8TCgT1xmAUzvSh8w%3D&hl=ta&source=homepage&sa=X&ved=0ahUKEwiJoKy9mK_-AhWjTmwGHYu2CJkQ2ZgBCAk
+[url] == http://www.google.com/setprefs?sig=0_ywQsiLW6JdN8TCgT1xmAUzvSh8w%3D&hl=gu&source=homepage&sa=X&ved=0ahUKEwiJoKy9mK_-AhWjTmwGHYu2CJkQ2ZgBCAo
+[url] == http://www.google.com/setprefs?sig=0_ywQsiLW6JdN8TCgT1xmAUzvSh8w%3D&hl=kn&source=homepage&sa=X&ved=0ahUKEwiJoKy9mK_-AhWjTmwGHYu2CJkQ2ZgBCAs
+[url] == http://www.google.com/setprefs?sig=0_ywQsiLW6JdN8TCgT1xmAUzvSh8w%3D&hl=ml&source=homepage&sa=X&ved=0ahUKEwiJoKy9mK_-AhWjTmwGHYu2CJkQ2ZgBCAw
+[url] == http://www.google.com/setprefs?sig=0_ywQsiLW6JdN8TCgT1xmAUzvSh8w%3D&hl=pa&source=homepage&sa=X&ved=0ahUKEwiJoKy9mK_-AhWjTmwGHYu2CJkQ2ZgBCA0
+[url] == http://google.com/intl/en/ads/
+[url] == http://www.google.co.in/services/
+[url] == http://google.com/intl/en/about.html
+[url] == http://www.google.com/setprefdomain?prefdom=IN&prev=http://www.google.co.in/&sig=K_4-UGmE_wGDsimTOb66-tV3dOfCI%3D
+[url] == http://google.com/intl/en/policies/privacy/
+[url] == http://google.com/intl/en/policies/terms/
