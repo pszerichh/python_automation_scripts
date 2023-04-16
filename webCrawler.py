@@ -18,7 +18,7 @@ def launchAttack():
 	parsedTarget = urlparse(targetURL)
 	res = requests.Response()
 	fd = open(outFile,'w')
-	fd.write(F'Web crawling summary against target {targetURL} carried out at {dt.now()}')
+	fd.write(F'Web crawling summary against target {targetURL} carried out at {dt.now()}\n')
 	try:
 		res = requests.get(targetURL)
 	except URLRequired as ur:
@@ -52,5 +52,3 @@ def setStage():
 	print(F'output will be written to {outFile}')
 	operation = F'URL scraping on target {targetURL}'
 
-setStage()
-launchAttack()
