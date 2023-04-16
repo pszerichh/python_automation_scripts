@@ -1,7 +1,8 @@
 import requests, queue, os
-# import urllib.parse, urllib.request, urllib.error
 from datetime import datetime as dt
 from globals import colors
+
+# to check page and directory fuzzing run against thm:startup
 
 targetHost = ''
 direWordlist = '/home/sam/Shop/python_automation_scripts/resources/directories_mini.txt'
@@ -53,11 +54,10 @@ def makeDictionary(attackType):
 def launchAttack():
 	global targetHost
 	fd = open(outFile, 'w')
+	fd.write(F'Content discovery results against host {targetHost} carried out at {dt.now()}\n')
 
 	if 'http' in targetHost or 'https' in targetHost:
 		targetHost = targetHost.split('://')[1]
-
-	# print(targetHost)
 
 	# subdomain fuzzing part
 	if not subdQueue.empty():
