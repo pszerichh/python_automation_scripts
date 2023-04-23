@@ -4,9 +4,8 @@ from responses import target
 from sqlalchemy import true
 import hostScan, portScanner, dummyScript, contentDiscovery, codeExitor, credsBruter, webCrawler, hostDigger
 from threading import *
-from globals import colors
+from globals import *
 
-banner = pyfiglet.figlet_format("Python Automation Scripts")
 print(banner)
 
 opers = F"""{colors['CCYAN']}{colors['CBOLD']}
