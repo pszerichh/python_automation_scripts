@@ -2,7 +2,7 @@
 import pyfiglet
 from responses import target
 from sqlalchemy import true
-import hostScan, portScanner, dummyScript, contentDiscovery, codeExitor, credsBruter, webCrawler
+import hostScan, portScanner, dummyScript, contentDiscovery, codeExitor, credsBruter, webCrawler, hostDigger
 from threading import *
 from globals import colors
 
@@ -15,7 +15,8 @@ opers = F"""{colors['CCYAN']}{colors['CBOLD']}
 [2] Scan for open ports on a target host
 [3] Fuzz for directories/files
 [4] Stuff credentials against login page
-[5] To exit{colors['CEND']}
+[5] Perform information look up on a domain name
+[6] To exit{colors['CEND']}
 """
 
 works = []

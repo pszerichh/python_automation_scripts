@@ -43,6 +43,8 @@ def launchAttack():
 				parsedURL = parsedURL._replace(netloc=parsedTarget.netloc)
 			fd.write(F'[url] == {urlunparse(parsedURL)}\n')
 
+	fd.close()
+
 
 def setStage():
 	global targetURL, operation, outFile
