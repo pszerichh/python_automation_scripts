@@ -12,10 +12,11 @@ opers = F"""{colors['CCYAN']}{colors['CBOLD']}
 [0] List running processes
 [1] Scan for live hosts on a network
 [2] Scan for open ports on a target host
-[3] Fuzz for directories/files
-[4] Stuff credentials against login page
-[5] Perform information look up on a domain name
-[6] To exit{colors['CEND']}
+[3] Perform information look up on a domain name
+[4] Crawl web page for urls
+[5] Fuzz for directories, files or subdomains
+[6] Stuff credentials against login page
+[7] To exit{colors['CEND']}
 """
 
 works = []
@@ -25,10 +26,11 @@ def choice(op1):
         0: dummyScript,
         1: hostScan,
         2: portScanner,
-        3: contentDiscovery,
-        4: credsBruter,
-        5: webCrawler,
-        6: codeExitor
+        3: hostDigger,
+        4: webCrawler,
+        5: contentDiscovery,
+        6: credsBruter,
+        7: codeExitor
     }
 
     pkg = switcher.get(op1, None)
@@ -44,7 +46,6 @@ def choice(op1):
         td.daemon = True
         td.start()
         works.append(td)
-
 
 
 
